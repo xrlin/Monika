@@ -3,5 +3,8 @@ class Post < ApplicationRecord
     acts_as_votable cacheable_strategy: :update_columns
     
     has_many :comments, as: :commentable
-    belongs_to :user, class_name: "user", foreign_key: "user_id"
+    belongs_to :author, class_name: "User", foreign_key: "author_id"
+
+    validates :content, :author, presence: true
+    
 end

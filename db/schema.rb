@@ -25,26 +25,33 @@ ActiveRecord::Schema.define(version: 2019_07_11_154313) do
     t.integer "cached_weighted_score", default: 0
     t.integer "cached_weighted_total", default: 0
     t.float "cached_weighted_average", default: 0.0
-    t.bigint "users_id"
+    t.bigint "author_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["users_id"], name: "index_articles_on_users_id"
+    t.index ["author_id"], name: "index_articles_on_author_id"
+    t.index ["cached_weighted_score"], name: "index_articles_on_cached_weighted_score"
   end
 
   create_table "comments", force: :cascade do |t|
     t.text "content", null: false
     t.string "commentable_type"
     t.bigint "commentable_id"
-    t.bigint "users_id"
+    t.bigint "author_id"
+    t.bigint "reply_to_comment_id"
+    t.bigint "reply_to_user_id"
+    t.integer "root_comment_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["author_id"], name: "index_comments_on_author_id"
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
-    t.index ["users_id"], name: "index_comments_on_users_id"
+    t.index ["reply_to_comment_id"], name: "index_comments_on_reply_to_comment_id"
+    t.index ["reply_to_user_id"], name: "index_comments_on_reply_to_user_id"
+    t.index ["root_comment_id"], name: "index_comments_on_root_comment_id"
   end
 
   create_table "posts", force: :cascade do |t|
     t.text "content", null: false
-    t.bigint "users_id"
+    t.bigint "author_id"
     t.integer "cached_votes_total", default: 0
     t.integer "cached_votes_score", default: 0
     t.integer "cached_votes_up", default: 0
@@ -54,7 +61,8 @@ ActiveRecord::Schema.define(version: 2019_07_11_154313) do
     t.float "cached_weighted_average", default: 0.0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["users_id"], name: "index_posts_on_users_id"
+    t.index ["author_id"], name: "index_posts_on_author_id"
+    t.index ["cached_weighted_score"], name: "index_posts_on_cached_weighted_score"
   end
 
   create_table "users", force: :cascade do |t|

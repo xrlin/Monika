@@ -13,8 +13,10 @@ class CreateArticles < ActiveRecord::Migration[5.2]
        t.integer :cached_weighted_total, default: 0
        t.float :cached_weighted_average, default: 0.0
     
-      t.references :users
+      t.references :author
       t.timestamps
+
+      t.index :cached_weighted_score
     end
   end
 end
