@@ -3,6 +3,9 @@ module EssayService
 
     class << self
 
+      # 返回根据点赞数逆序分页的结果及每条记录对应的最新3条评论
+      # @param [Integer] page
+      # @return [Hash]
       def retrieve_activities(page)
         per_page = 5
         page = (page.present? ? page : 1).to_i
@@ -11,15 +14,18 @@ module EssayService
         {essays: essays, comment_groups: comment_groups}
       end
 
+      # 返回根据点赞逆序的一页article/post记录
+      # @param [Integer] page
+      # @param [Integer] per_page
+      # @return [Array]
       def retrieve_activities_page(page, per_page)
         offset = per_page * (page - 1)
         conn = ActiveRecord::Base.connection
-
         sql = %Q(
-select * from (select id, title, content, 'article' as essay_type, author_id, created_at, cached_weighted_score from articles
-union all
-select id, NULL as title, content, 'post' as essay_type, author_id, created_at, cached_weighted_score from posts)
-  as tmp order by cached_weighted_score desc offset #{conn.quote(offset)} limit #{conn.quote(per_page)}
+          select * from (select id, title, content, 'article' as essay_type, author_id, created_at, cached_weighted_score from articles
+          union all
+          select id, NULL as title, content, 'post' as essay_type, author_id, created_at, cached_weighted_score from posts)
+            as tmp order by cached_weighted_score desc offset #{conn.quote(offset)} limit #{conn.quote(per_page)}
         )
 
         rows = conn.execute sql
@@ -41,20 +47,20 @@ select id, NULL as title, content, 'post' as essay_type, author_id, created_at, 
       end
 
       def top3comments(essays)
-         topNcomments essays, 3
+        top_n_comments essays, 3
       end
 
-      def topNcomments(essays, top_n)
+      def top_n_comments(essays, top_n)
         essay_arr = essays.map {|essay| "#{essay.class.name}-#{essay.id}"}
         sql = %Q( SELECT comment_ranks.* FROM (
-        SELECT comments.*, CONCAT(commentable_type, '-', commentable_id) as group_str,
-        rank() OVER (
-            PARTITION BY commentable_type, commentable_id
-            ORDER BY created_at DESC
+          SELECT comments.*, CONCAT(commentable_type, '-', commentable_id) as group_str,
+          rank() OVER (
+              PARTITION BY commentable_type, commentable_id
+              ORDER BY created_at DESC
+          )
+          FROM comments
+          ) comment_ranks WHERE RANK < :top_n AND comment_ranks.group_str IN (:identifiers_str);
         )
-        FROM comments
-      ) comment_ranks WHERE RANK < :top_n AND comment_ranks.group_str IN (:identifiers_str);
-     )
         sql_params = {top_n: top_n + 1}
         sql_params[:identifiers_str] = essay_arr
 
@@ -88,6 +94,7 @@ select id, NULL as title, content, 'post' as essay_type, author_id, created_at, 
         {essays: essays, comment_groups: top3comments(essays)}
       end
 
+      # 返回用户最近点赞的article/post及最新3条评论信息
       def retrieve_user_activities(user, page = 1)
         per_page = 5
         offset = per_page * (page - 1)

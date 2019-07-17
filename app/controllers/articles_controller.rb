@@ -2,7 +2,7 @@ class ArticlesController < ApplicationController
   before_action :check_login, except: [:show]
   def show
     @article = EssayService::Article.detail params[:id]
-    comment_group = EssayService::Flow.topNcomments [@article], 5
+    comment_group = EssayService::Flow.top_n_comments [@article], 5
     comments = comment_group.fetch @article.identifier, []
     render locals: {comments: comments}
   end

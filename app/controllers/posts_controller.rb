@@ -2,7 +2,7 @@ class PostsController < ApplicationController
   before_action :check_login, except: [:show]
   def show
     @post = EssayService::Post.detail params[:id]
-    comment_group = EssayService::Flow.topNcomments [@post], 5
+    comment_group = EssayService::Flow.top_n_comments [@post], 5
     comments = comment_group.fetch @post.identifier, []
     render locals: {comments: comments}
   end
