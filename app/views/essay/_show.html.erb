@@ -1,7 +1,7 @@
 <% if essay.try(:title).present? %>
   <h3><%= essay.title %></h3>
 <% end %>
-<pre><%= essay.content %></pre>
+<%= simple_format essay.content %>
 <div class="article-foot">
   <div class="like-badge" data-controller="vote">
     <%= form_tag "/votes", style: "display-inline", data: {action: 'vote#vote'} do %>
