@@ -1,0 +1,29 @@
+<div data-controller="comments" >
+      <% comments.each do |comment| %>
+        <%= render partial: "flow/comment", locals: {comment: comment} %>
+      <% end %>
+  <div data-target="comments.more" class="more">
+    <% if comments.blank? %>
+      没有了
+    <% else %>
+      <a data-action="comments#fetchMore" data-start="<%= comments.last.id %>" data-essay-id="<%= essay_id %>" data-essay-type="<%= essay_type %>">加载更多</a>
+    <% end %>
+  </div>
+  <% if current_user.present? %>
+<!--    new comment-->
+  <div class="add-comment">
+    <%= form_tag '/comments', method: "post",  id: "add-comment-form" , data: {action: 'comments#addComment', target: 'comments.form'} do %>
+      <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+      <%= hidden_field_tag :essay_id, essay_id %>
+      <%= hidden_field_tag :essay_type, essay_type %>
+      <div class="form-group row">
+        <div class="col-sm-10">
+          <input type="text" class="form-control" data-target="comments.formCommentInput" placeholder="评论" name="content">
+        </div>
+        <button type  ="submit" class="btn btn-primary col-sm2">提交</button>
+      </div>
+    <% end %>
+  </div>
+    <% end %>
+
+</div>

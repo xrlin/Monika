@@ -1,0 +1,19 @@
+<%= form_tag "/users/#{@user.id}", method: "put" do %>
+  <div class="form-group">
+    <label for="username">用户名</label>
+    <input name="username" type="text" class="form-control" id="username" aria-describedby="emailHelp" placeholder="用户名" value="<%= @user.username %>">
+  </div>
+  <div class="form-group">
+    <label for="password">密码</label>
+    <input name="old_password" type="password" class="form-control" id="old-password" placeholder="请输入密码">
+  </div>
+  <div class="form-group">
+    <label for="password">新密码</label>
+    <input name="new_password" type="password" class="form-control" id="new-password" placeholder="请输入新密码">
+  </div>
+  <div class="form-group">
+    <label for="password-confirmation">确认密码</label>
+    <input name="password_confirmation" type="password" class="form-control" id="password-confirmation" placeholder="再次确认新密码">
+  </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+<% end %>

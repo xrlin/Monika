@@ -1,0 +1,19 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+user1:
+  username: user1
+  avatar_link: http://avatar.cnd.com/test.jpg
+  # password is "password"
+  password_digest: "$2a$12$R/s2eEIeZdMXKMSTaKiEN.mAW/pLhG.dCUPpagHpiA/evelucGVSm"
+
+user2:
+  username: user2
+  avatar_link: http:://avatar.cdn.com/test.jpg
+  # password is "password"
+  password_digest: "$2a$12$R/s2eEIeZdMXKMSTaKiEN.mAW/pLhG.dCUPpagHpiA/evelucGVSm"
+
+user3:
+  username: user3
+  avatar_link: http:://avatar.cdn.com/test.jpg
+  # password is "password"
+  password_digest: "$2a$12$R/s2eEIeZdMXKMSTaKiEN.mAW/pLhG.dCUPpagHpiA/evelucGVSm"

@@ -1,15 +1,60 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Monika</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
+<head>
+  <title>Monika</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_pack_tag 'application' %>
+  <%= stylesheet_pack_tag 'application' %>
+</head>
 
-  <body>
-    <%= yield %>
-  </body>
+<body>
+<div class="container w-50" style="margin-top: 80px;">
+  <nav class="nav navbar fixed-top navbar-light bg-primary custom-nav">
+    <a class="navbar-brand" href="/">Monika</a>
+      <% if current_user.present? %>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.username %></a>
+        <div class="dropdown-menu">
+          <a class="dropdown-item" href="<%= new_article_path %>">新建文章</a>
+          <a class="dropdown-item" href="<%= new_post_path %>">新建随笔</a>
+          <a class="dropdown-item" href="<%= user_path current_user %>">个人中心</a>
+          <a class="dropdown-item" href="<%= edit_user_path current_user %>">设置</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="/logout" data-remote="true" data-method="delete" data-confirm="确定要退出登录吗？" rel="nofollow">登出</a>
+        </div>
+      </li>
+      <% else %>
+        <li class="nav-item">
+          <span>
+            <a class="" href="/login">登录</a>&nbsp;/&nbsp;
+          <a class="" href="/users/new">注册</a>
+          </span>
+        </li>
+      <% end %>
+  </nav>
+  <% if flash[:error].present? %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <strong>出错了！</strong> <%= flash[:error] %>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  <% end %>
+
+  <% if flash[:success].present? %>
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <%= flash[:success] %>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  <% end %>
+
+  <%= yield %>
+</div>
+</body>
 </html>

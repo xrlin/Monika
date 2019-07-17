@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# This model initially had no columns defined. If you add columns to the
+# model remove the '{}' from the fixture names and add the columns immediately
+# below each fixture, per the syntax in the comments below
+#
+comment_by_user1: 
+  content: "comment 1"
+  author: user1
+
+comment_by_user2_in_article_with_user1:
+  content: "comment 2"
+  author: user2
+  commentable: article_with_user1 (Article)
+
