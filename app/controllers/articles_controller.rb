@@ -38,6 +38,10 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
-
+    EssayService::Article.delete current_user, params[:id]
+    redirect_to root_path
+  rescue Error::Forbid => e
+    flash[:error] == e.message
+    redirect_back fallback_location: root_path
   end
 end

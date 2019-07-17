@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root "flow#index"
   resources :articles
   resources :posts
-  resources :comments, only: [:index, :destroy, :create]
+  resources :comments, only: [:index, :destroy, :create, :update]
   resources :users, except: [:index, :destroy]
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
