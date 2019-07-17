@@ -19,6 +19,8 @@
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><%= current_user.username %></a>
         <div class="dropdown-menu">
+          <a class="dropdown-item" href="<%= new_article_path %>">新建文章</a>
+          <a class="dropdown-item" href="<%= new_post_path %>">新建随笔</a>
           <a class="dropdown-item" href="<%= user_path current_user %>">个人中心</a>
           <a class="dropdown-item" href="<%= edit_user_path current_user %>">设置</a>
           <div class="dropdown-divider"></div>
