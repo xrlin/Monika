@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
     username, password = params.require([:username, :password])
     user = UserService::Auth.new(username, password).perform
     if user == nil
-      flash[:error] = "用户名或密码错误"
+      flash.now[:error] = "用户名或密码错误"
       render :new
     else
       login_user user
