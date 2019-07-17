@@ -5,7 +5,7 @@
     <% end %>
     <small class="text-muted float-right" style="font-size: small"><%= essay_badge_str essay %></small>
   </h3>
-  <pre class="card-text content"><%= truncate essay.content, length: 300, seperator: '...' %></pre>
+  <p class="card-text content"><%= simple_format(truncate(essay.content, length: 300, seperator: '...')) %></p>
   <div class="article-foot">
     <div class="like-badge" data-controller="vote">
       <%= form_tag "/votes", style: "display-inline", data: {action: 'vote#vote'} do %>
