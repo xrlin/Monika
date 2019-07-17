@@ -102,7 +102,6 @@ module EssayService
                 ::Article.includes(:comments).order(id: :desc).offset(per_page * (page - 1)).limit(per_page)
             end
 
-            private
  
             def can_update_article?(user, article)
                 article.author == user

@@ -27,8 +27,14 @@ export default class extends Controller {
       cache: false,
       dataType: 'json',
       success: function(data){
+        if (data['error']) {
+          alert(data['error']);
+          return
+        }
         $(ctx.scoreTarget).text(data['score'])
-      }
+      },
+
+
     });
   }
 

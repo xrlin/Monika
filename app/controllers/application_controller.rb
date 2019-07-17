@@ -15,7 +15,16 @@ class ApplicationController < ActionController::Base
 
   def check_login
     return if current_user.present?
-    redirect_to '/login'
+    respond_to do |format|
+      format.html {
+        redirect_to '/login'
+      }
+      format.json {
+        render json: {
+            error: '请先登录',
+        }
+      }
+    end
   end
 
   def get_nullable_param(key, default=nil)

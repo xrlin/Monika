@@ -4,7 +4,7 @@ module EssayService
     class << self
 
       def retrieve_activities(page)
-        per_page = 2
+        per_page = 5
         page = (page.present? ? page : 1).to_i
         essays = retrieve_activities_page page, per_page
         comment_groups = top3comments essays
@@ -63,33 +63,33 @@ select id, NULL as title, content, 'post' as essay_type, author_id, created_at, 
       end
 
       def retrieve_articles_with_latest_comments(page = 1)
-        per_page = 25
+        per_page = 5
         essays = ::Article.includes(:author).order(id: :desc).offset(per_page * (page - 1)).limit(per_page)
         comment_groups = top3comments essays
         {essays: essays, comment_groups: comment_groups}
       end
 
       def retrieve_posts_with_latest_comments(page = 1)
-        per_page = 25
+        per_page = 5
         essays = ::Post.includes(:author).order(id: :desc).offset(per_page * (page - 1)).limit(per_page)
         comment_groups = top3comments essays
         {essays: essays, comment_groups: comment_groups}
       end
 
       def retrieve_articles_with_user(user, page = 1)
-        per_page = 25
+        per_page = 5
         essays = ::Article.includes(:author).where(author_id: user.id).order(id: :desc).offset(per_page * (page - 1)).limit(per_page)
         {essays: essays, comment_groups: top3comments(essays)}
       end
 
       def retrieve_posts_with_user(user, page = 1)
-        per_page = 25
+        per_page = 5
         essays = ::Post.includes(:author).where(author_id: user.id).order(id: :desc).offset(per_page * (page - 1)).limit(per_page)
         {essays: essays, comment_groups: top3comments(essays)}
       end
 
       def retrieve_user_activities(user, page = 1)
-        per_page = 10
+        per_page = 5
         offset = per_page * (page - 1)
         sql = %Q(SELECT votes.votable_id, votes.votable_type from votes INNER JOIN (
                  SELECT id FROM votes WHERE voter_id = #{user.id} ORDER BY id DESC OFFSET #{offset} LIMIT #{per_page}) AS v USING(id);

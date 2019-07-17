@@ -20,7 +20,7 @@ module EssayService
             #
             # Update post
             #
-            # @param [User] author 
+            # @param [User] user
             # @param [Integer] postid 
             # @param [String] content 
             #
@@ -36,7 +36,7 @@ module EssayService
             #
             # Delete post
             #
-            # @param [User] author 
+            # @param [User] user
             # @param [Integer] postid 
             #
             # @return [TrueClass|FalseClass] raise Error::Forbid if user has no privilege to delete
@@ -87,8 +87,6 @@ module EssayService
                 user = User.find(user_id)
                 dislike_essay post, user
             end
-
-            private
 
             def can_update_post?(user, post)
                 post.author == user

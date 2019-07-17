@@ -22,6 +22,9 @@
     <span class="badge badge-secondary" title="评论">
       <a href="#" class="card-link" data-toggle="collapse" data-target=<%= "##{essay.class.name.downcase}-#{essay.id}-comments" %> aria-expanded="false" aria-controls=<%= "##{essay.class.name.downcase}-#{essay.id}-comments" %>>评论</a>
     </span>
+    <span class="badge badge-secondary">
+      <a href="<%= essay_path essay %>">阅读全文</a>
+    </span>
   </div>
   <br>
   <div class="card collapse comments" id=<%= "#{essay.class.name.downcase}-#{essay.id}-comments" %>>

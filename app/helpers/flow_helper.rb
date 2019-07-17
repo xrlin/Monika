@@ -19,5 +19,18 @@ module FlowHelper
     end
   end
 
+  def can_delete_essay? essay
+    return false if current_user.nil?
+    if essay.is_a? Post
+       EssayService::Post.can_delete_post? current_user, essay
+    else
+       EssayService::Article.can_delete_article? current_user, essay
+    end
+  end
+
+  def can_update_essay? essay
+    can_delete_essay? essay
+  end
+
 
 end
