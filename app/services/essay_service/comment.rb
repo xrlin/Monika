@@ -65,13 +65,17 @@ module EssayService
             #
             # @param [Integer] essay_id Post or Article id
             # @param [String] essay_type Value is "Post" or "Article", default is "Article"
-            # @param [Integer] page
+            # @param [Integer] start if blank, will start from
             #
             # @return [ActiveRecord::Relation] <description>
             #
-            def comments_with_essay(essay_id, essay_type = "Article", page=1)
+            def comments_with_essay(essay_id, essay_type = "Article", start=nil)
                 per_page = 20
-                ::Comment.where(commentable_id: essay_id, commentable_type: essay_type).order(id: :desc).offset(per_page * (page - 1)).limit(per_page)
+                query = ::Comment.includes(:author, :reply_to_user).where(commentable_id: essay_id, commentable_type: essay_type)
+                if start.present?
+                    query = query.where('id < ?', start)
+                end
+                query.order(id: :desc).limit(per_page)
             end
 
         end

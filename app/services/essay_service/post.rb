@@ -38,7 +38,6 @@ module EssayService
             #
             # @param [User] author 
             # @param [Integer] postid 
-            # @param [String] content 
             #
             # @return [TrueClass|FalseClass] raise Error::Forbid if user has no privilege to delete
             #
@@ -66,12 +65,13 @@ module EssayService
             # @param [Integer] post_id 
             # @param [Integer] user_id
             #
-            # @return [Object] success if nothing raises
+            # @return [Integer] return current score, success if nothing raises
             #
             def like(post_id, user_id)
                 post = ::Post.find(post_id)
                 user = User.find(user_id)
                 like_essay post, user
+                post.weighted_score
             end
 
             #

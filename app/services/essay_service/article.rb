@@ -59,7 +59,7 @@ module EssayService
             # @return [Article] 
             #
             def detail(article_id)
-                ::Article.find article_id
+                ::Article.includes(:author).find article_id
             end
 
             #
@@ -68,12 +68,13 @@ module EssayService
             # @param [Integer] article_id 
             # @param [Integer] user_id 
             #
-            # @return [Object] success if nothing raises
+            # @return [Integer] return current score. success if nothing raises
             #
             def like(article_id, user_id)
                 article = ::Article.find article_id
                 user = User.find user_id
                 like_essay article, user
+                article.weighted_score
             end
 
             #

@@ -1,0 +1,10 @@
+<% essays.each do |essay| %>
+  <%= render partial: "flow/essay_card", locals: {essay: essay, comments: comment_groups.fetch(essay.identifier, [])} %>
+<% end %>
+<div data-target="flow.more" class="more">
+  <% if essays.present? %>
+    <a data-action="flow#loadMore" data-next-page="<%= next_page %>">加载下一页</a>
+    <% else %>
+    <span>没有了</span>
+  <% end %>
+</div>

@@ -1,0 +1,15 @@
+<div class="comment">
+  <div class="comment-header">
+    <a href="<%= user_path comment.author %>"><%= comment.author.username %></a>
+    <% if comment.reply_to_user.present? %>
+      <span style="color: darkgray;">回复</span>
+      <a href="<%= user_path comment.author %>"><%= comment.reply_to_user.username %></a>
+    <% end %>
+  </div>
+  <div class="comment-body">
+    <%= comment.content %>
+  </div>
+  <div class="comment-footer">
+    <p class="text-right"><a href="#" data-comment-id="<%= comment.id %>" data-comment-username="<%= comment.author.username %>" data-action="comments#addReplyInfo"><small>回复</small></a></p>
+  </div>
+</div>

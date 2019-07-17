@@ -1,0 +1,14 @@
+<% if essay.try(:title).present? %>
+  <h3><%= essay.title %></h3>
+  <% end %>
+<p><%= essay.content %></p>
+<% if essay.is_a? Article %>
+  <%= link_to "删除", essay_path(essay), method: :delete, remote: true, data: {confirm: "确定要删除该文章?"} %>
+  <% else %>
+  <%= link_to "删除", essay_path(essay), method: :delete, remote: true, data: {confirm: "确定要删除该随笔?"} %>
+
+<% end %>
+<a href="<%= edit_essay_path essay  %>" %>编辑</a>
+<div class="comments">
+  <%= render partial: "flow/comments", locals: {comments: comments, essay_id: essay.id, essay_type: essay.class.name } %>
+</div>

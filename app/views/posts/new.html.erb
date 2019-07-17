@@ -1,0 +1,8 @@
+<form action="/posts" method="post">
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+  <div class="form-group">
+    <label for="content">正文</label>
+    <textarea class="form-control" id="content" rows="3" name="content"><%= @post.content %></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary">提交</button>
+</form>

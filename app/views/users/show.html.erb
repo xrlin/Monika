@@ -1,0 +1,27 @@
+<div class="row" data-controller="flow">
+  <div class="card w-100">
+    <div class="card-header">
+      <ul class="nav nav-tabs card-header-tabs">
+        <li class="nav-item">
+          <a class="nav-link <%= 'active' if params[:type].blank? %>" href="<%= user_path user %>">Like</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link <%= 'active' if params[:type] == 'article' %>" href="<%= user_path user, type: 'article' %>">文章</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link <%= 'active' if params[:type] == 'post' %>" href="<%= user_path user, type: 'post' %>" tabindex="-1" aria-disabled="true">随笔</a>
+        </li>
+        <% if user != current_user %>
+        <li class="nav-item">
+          <a class="nav-link disabled"><%= user.username %>的动态</a>
+        </li>
+          <% else %>
+          <li class="nav-item">
+            <a class="nav-link disabled">我的动态</a>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    <%= render partial: "flow/index", locals: {essays: essays, comment_groups: comment_groups, next_page: next_page} %>
+  </div>
+</div>

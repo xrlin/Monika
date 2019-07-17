@@ -1,0 +1,18 @@
+<div class="row" data-controller="flow">
+  <div class="card w-100" data-target="flow.container">
+    <div class="card-header">
+      <ul class="nav nav-tabs card-header-tabs">
+        <li class="nav-item">
+          <a class="nav-link <%= 'active' if params[:type].blank? %>" href="/">热门</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link <%= 'active' if params[:type] == 'article' %>" href="/?type=article">文章</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link <%= 'active' if params[:type] == 'post' %>" href="/?type=post" tabindex="-1" aria-disabled="true">随笔</a>
+        </li>
+      </ul>
+    </div>
+    <%= render partial: "flow/index", locals: {essays: essays, comment_groups: comment_groups, next_page: next_page} %>
+  </div>
+</div>

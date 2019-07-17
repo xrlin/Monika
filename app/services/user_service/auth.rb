@@ -12,8 +12,10 @@ module UserService
         #
         # @return [User] nil if auth failed or user not found
         #
-        def perform
-            User.find_by(username: @username).try(:authenticate, @password)
+        def performL
+            u = User.find_by(username: @username)
+            return u if u.try(:authenticate, @password)
+            nil
         end
         
     end

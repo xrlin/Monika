@@ -7,12 +7,12 @@ class User < ApplicationRecord
     validates :username, :password_digest, :avatar_link, presence: true
     validates_uniqueness_of :username, message: "must be unique"
 
-    before_create :set_default_avatar
+    before_validation :set_default_avatar
     
     private
 
     def set_default_avatar
         return if avatar_link.present?
-        avatar_link = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1562989383747&di=3e40a1ab444f279ed9c08fe6c400e4f6&imgtype=0&src=http%3A%2F%2Fi0.hdslb.com%2Fbfs%2Farticle%2F6344eb58ac17d53728736c2f8dd4e843c34558f8.jpg"
+        self.avatar_link = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1562989383747&di=3e40a1ab444f279ed9c08fe6c400e4f6&imgtype=0&src=http%3A%2F%2Fi0.hdslb.com%2Fbfs%2Farticle%2F6344eb58ac17d53728736c2f8dd4e843c34558f8.jpg"
     end
 end

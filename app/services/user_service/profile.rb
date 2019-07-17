@@ -22,13 +22,13 @@ module UserService
             #
             # Update user's profile (including password if present)
             #
-            # @param [String] username user's current username
+            # @param [User] user current user
             # @param [Has] **params user attributes, all keys are symbol
             #
             # @return [User] User object with updated attributes, raise exception if user not found,
             #                use errors attribute to check success
-            def update_profile(username, **params)
-                u = User.find_by!(username: username)
+            def update_profile(user, **params)
+                u = user
                 update_params = params_except_password_fields params
                 if should_update_password?(params)
                     if auth?(u, params[:old_password])

@@ -1,0 +1,29 @@
+<div class="card-body">
+  <h3 class="card-title article-title">
+    <a href="<%= article_path article %>"><span><%= article.title %></span></a>
+    <small class="text-muted float-right" style="font-size: small">文章</small>
+  </h3>
+  <article class="card-text content"><%= article.content %></article>
+  <div class="article-foot">
+    <div class="like-badge" data-controller="vote">
+      <%= form_tag "/votes", style: "display-inline", data: {action: 'vote#vote'} do %>
+        <%= hidden_field_tag :essay_id, article.id, data: {target: 'vote.essayId'} %>
+        <%= hidden_field_tag :essay_type, article.class.name, data: {target: 'vote.essayType'} %>
+        <span class="badge badge-secondary" title="赞同">
+          <a href="#" class="card-link" data-action="vote#vote">Like:&nbsp;<span data-target="vote.score" data-vote-score="<%= article.weighted_score %>"><%= article.weighted_score %></span></a>
+        </span>
+      <% end %>
+    </div>
+    <span class="badge badge-secondary" title="作者">
+      <a href="<%= user_path article.author %>">作者: &nbsp;<%= article.author.username %></a>
+    </span>
+    <span class="badge badge-secondary" title="评论">
+      <a href="#" class="card-link" data-toggle="collapse" data-target=<%= "#article-#{article.id}-comments" %> aria-expanded="false" aria-controls=<%= "#article-#{article.id}-comments" %>>评论</a>
+    </span>
+  </div>
+  <br>
+  <div class="card collapse comments" id=<%= "article-#{article.id}-comments" %>>
+      <%= render partial: "comments", locals: {comments: comments, essay_id: article.id, essay_type: 'Article'} %>
+  </div>
+</div>
+<hr>
