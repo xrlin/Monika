@@ -11,3 +11,9 @@ post1:
 post_with_user1:
   content: "thought"
   author: user1
+
+<% [4,3,2,1].each_with_index do |n, i| %>
+post_for_flow_test_<%= i %>:
+  content: <%= "post weighted #{n}" %>
+  author: user1
+<% end %>
