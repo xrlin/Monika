@@ -10,7 +10,7 @@ module EssayServiceTest
         test "non-author cannot update post" do
             user = users(:user2)
             post = posts(:post_with_user1)
-            assert_raises (Error::Forbid) do
+            assert_raises(Error::Forbid) do
                EssayService::Post.update user, post.id, "content"
             end
         end
@@ -18,7 +18,7 @@ module EssayServiceTest
         test "non-author cannot delete post" do
             user = users(:user2)
             post = posts(:post_with_user1)
-            assert_raises (Error::Forbid) do
+            assert_raises(Error::Forbid) do
                EssayService::Post.delete user, post.id
             end
         end

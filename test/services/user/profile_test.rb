@@ -13,13 +13,13 @@ module UserServiceTest
         test "update profile without password confirmation" do
             u = UserService::Profile.update_profile(users("user1"),
                 avatar_link: "http://test.avatar", old_password: "password", new_password: "password2")
-            assert u.errors[:password].present?
+            assert u.errors[:password_confirmation].present?
         end
 
         test "update profile with wrong confirmation" do
             u = UserService::Profile.update_profile(users("user1"), avatar_link: "http://test.avatar",
                  old_password: "password", new_password: "password2", password_confirmation: "wrong")
-            assert u.errors[:password].present?
+            assert u.errors[:password_confirmation].present?
         end
 
     end

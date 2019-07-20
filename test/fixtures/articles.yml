@@ -20,5 +20,14 @@ article_without_comments:
   content: "hello"
   author: user1
 
+<% [4,4,2,1].each_with_index do |n, i| %>
+article_for_flow_test_<%= i %>:
+  title: <%= "article weighted #{n}" %>
+  content: content
+  author: user1
+<% end %>
+
+
+
 
 

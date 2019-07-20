@@ -1,7 +1,7 @@
 module UserServiceTest
     class AuthTest < ActiveSupport::TestCase
         test "auth success" do
-            service = UserService::Auth.new("user1", "password")
+            service = UserService::Auth.new("user0", "password")
             u = service.perform
             assert_not_nil u
         end
